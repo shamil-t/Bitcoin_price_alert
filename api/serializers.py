@@ -1,11 +1,14 @@
-from api.models import CreateApiModel
+from django.db.models import fields
+from api.models import *
 from rest_framework  import serializers
 
 
-class CreateSerializers(serializers.ModelSerializer):
-
+class UserSerializer(serializers.ModelSerializer):
   class Meta:
-    model = CreateApiModel
-    fields = [
-      'name', 'email', 'price'
-    ]
+    model = UserModel
+    fields = '__all__'
+
+# class CreateSerializers(serializers.ModelSerializer):
+#   class Meta:
+#     model = CreateApiModel
+#     fields =  '__all__'

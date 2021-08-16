@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+  </script>
+
+  <style>
+    .user-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .user-group .user-icon button {
+      font-size: 30px;
+      margin-top: 0px;
+    }
+
+    .user-group .user-icon button:focus {
+      box-shadow: none;
+    }
+    .sm {
+      font-size: 12px;
+    }
+    .logo{
+      width: 24px;
+      height: 24px;
+      margin: 5px;
+    }
+    .sign{
+      color: rgb(255, 144, 140);
+      font-size: 12px;
+      margin: 5px;
+    }
+    .up{
+      color: green;
+      font-weight: 600;
+    }
+    .down{
+      color: red;
+    }
+  </style>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        My Coin Price Alert
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
+        aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarToggler">
+        <div class="user-group">
+          <div class="user-name">
+            Hi <b>{{ name }}</b>. <br>
+            <small class="link-secondary sm">{{ email }}</small>
+          </div>
+          <div class="user-icon">
+            <button class="btn" type="button" data-bs-toggle="dropdown"><i class="fas fa-user-circle"></i></button>
+            <div class="dropdown-menu dropdown-menu-end">
+              <div class="dropdown-item"> <i class="fas fa-plus-circle"></i> &nbsp; Create</div>
+              <div class="dropdown-item"> <i class="fas fa-bells"></i> &nbsp; My Alerts</div>
+              <div class="dropdown-item"> <i class="fas fa-sign-out"></i> &nbsp; Log out</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="container my-3">
+    <div class="row justify-content-center align-content-center">
+      <div class="col-10">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Coin</th>
+              <th scope="col">Price</th>
+              <th scope="col">Market</th>
+              <th scope="col">24h %</thcl>
+            </tr>
+          </thead>
+          <tbody id="t-c">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+<script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+<script>
+  $(document).ready(
+    setInterval(getCoins,10000)
+  )
+
+  function getCoins() {
+    change = "down"
+    image = ""
+    $.ajax({
+      type: 'GET',
+      url: '{% url 'coins' %}',
+      success: (data) => {
+        $('#t-c').html(" ");
+        $.each(data , (i, item) => {
+          if (data[i].change.startsWith('+')){
+            change = "up"
+          }
+          else{
+            change = "down"
+          }
+          
+          console.log(data[i].change);
+          tr = "<tr> "
+          +"<td> "+ (parseInt(i) + 1)+"</td> "
+          +"<td> <img class="+"logo"+" src = "+ data[i].image +"/>"
+            + data[i].name + "<span class="+"sign"+">"+ data[i].sign +"</span>" +"</td> "
+          +"<td>"+ data[i].price +"</td> "
+          +"<td>"+ data[i].market +"</td> "
+          +"<td> <span class="+ change +">"+ data[i].change +"</span> </td> "
+          +"</tr>"
+          $('#t-c').append(tr);
+        })
+        
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
+</script>
+
+</html>
