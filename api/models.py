@@ -21,5 +21,5 @@ class CreateApiModel(models.Model):
     trigger = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return "{} - {}".format(self.name, self.email)
+    # def __str__(self):
+    #     return "__all__"

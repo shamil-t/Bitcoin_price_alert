@@ -1,288 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-      rel="stylesheet"
-      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-      crossorigin="anonymous"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-      crossorigin="anonymous"
-    />
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-      crossorigin="anonymous"
-    ></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
 
-    <title>BTC Alert</title>
-    <style>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+  </script>
+
+  <title>BTC Alert</title>
+  <style>
+    .login-register {
+      max-width: 500px;
+      min-width: 250px;
+      margin: 10% auto;
+    }
+
+    @media screen and (max-width:'768px') {
       .login-register {
-        max-width: 500px;
-        min-width: 250px;
-        margin: 10% auto;
+        max-width: 250px;
       }
+    }
 
-      .login-register .nav > li > button {
-        color: rgb(57, 59, 59);
-        max-width: 150px;
-        min-width: 80px;
-      }
+    .login-register .nav>li>button {
+      color: rgb(57, 59, 59);
+      max-width: 150px;
+      min-width: 80px;
+    }
 
-      .login-register .nav > li > button.active {
-        color: azure;
-        background-color: #193e5b;
-      }
+    .login-register .nav>li>button.active {
+      color: azure;
+      background-color: #193e5b;
+    }
 
-      .login-register .nav-tabs {
-        padding-bottom: 10px;
-        margin-bottom: 10px;
-      }
+    .btn-cstm {
+      width: 100%;
+      background-color: #1d65a6;
+      border-color: #72a2c0;
+      margin-bottom: 0.5em;
+      border-radius: 8px;
+    }
 
-      .btn-cstm {
-        width: 100%;
-        background-color: #1d65a6;
-        border-color: #72a2c0;
-        margin-bottom: 0.5em;
-        border-radius: 8px;
-      }
+    .btn-cstm:hover {
+      background-color: #197266;
+      border-color: #2abb9b;
+    }
+  </style>
+</head>
 
-      .btn-cstm:hover {
-        background-color: #197266;
-        border-color: #2abb9b;
-      }
-    </style>
-  </head>
+<body>
+  <div class="login-register container">
+    <ul class="nav nav-tabs my-3" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button"
+          role="tab" aria-controls="login" aria-selected="true">
+          Login
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button"
+          role="tab" aria-controls="register" aria-selected="false">
+          Register
+        </button>
+      </li>
+    </ul>
 
-  <body>
-    <div class="login-register container">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link active"
-            id="login-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#login"
-            type="button"
-            role="tab"
-            aria-controls="login"
-            aria-selected="true"
-          >
-            Login
-          </button>
-        </li>
-        <li class="nav-item">
-          <button
-            class="nav-link"
-            id="register-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#register"
-            type="button"
-            role="tab"
-            aria-controls="register"
-            aria-selected="false"
-          >
-            Register
-          </button>
-        </li>
-      </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="login-tab" id="login">
+        <h1 class="h1">Login</h1>
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="input-group">
+            <div class="input-group-text"><i class="fas fa-user"></i></div>
+            <input id="login_mail" type="text" name="register_username" class="form-control" placeholder="email address"
+              required="required" value="" />
+          </div>
 
-      <div class="tab-content" id="myTabContent">
-        <div
-          class="tab-pane fade show active"
-          role="tabpanel"
-          aria-labelledby="login-tab"
-          id="login"
-        >
-          <h1 class="h1">Login</h1>
-          <form action="" method="POST">
-            <div class="input-group">
-              <div class="input-group-text"><i class="fas fa-user"></i></div>
-              <input
-                id="login_mail"
-                type="text"
-                name="register_username"
-                class="form-control"
-                placeholder="email address"
-                required="required"
-                value=""
-              />
+          <br />
+
+          <div class="input-group">
+            <div class="input-group-text"><i class="fas fa-lock"></i></div>
+            <input type="password" class="form-control" id="login_pwd" placeholder="password" />
+            <button type="button" id="psd" class="input-group-text bg-light">
+              <i id="psd-icon" class="fas fa-eye"></i>
+            </button>
+          </div>
+
+          <br />
+
+          <div class="col-auto">
+            <button id="login_btn" class="btn btn-primary mb-3 btn-cstm">
+              Login
+            </button>
+          </div>
+        </form>
+
+        if not registered please <b>Register</b>.
+      </div>
+
+      <div class="tab-pane fade" role="tabpanel" aria-labelledby="register-tab" id="register">
+        <h1 class="h1">Register</h1>
+        <form action="" method="POST">
+          <div class="input-group">
+            <div class="input-group-text"><i class="fas fa-user"></i></div>
+            <input id="reg_user" type="text" name="register_username" class="form-control" placeholder="full name"
+              required="required" value="" />
+          </div>
+
+          <br />
+
+          <div class="input-group">
+            <div class="input-group-text">
+              <i class="fas fa-envelope-open-text"></i>
             </div>
+            <input id="reg_email" type="text" name="register_username" class="form-control" placeholder="email address"
+              required="required" value="" />
+          </div>
 
-            <br />
+          <br />
 
-            <div class="input-group">
-              <div class="input-group-text"><i class="fas fa-lock"></i></div>
-              <input
-                type="password"
-                class="form-control"
-                id="login_pwd"
-                placeholder="password"
-              />
-            </div>
+          <div class="input-group">
+            <div class="input-group-text"><i class="fas fa-lock"></i></div>
+            <input type="password" class="form-control" id="reg_pwd" placeholder="password" />
+          </div>
 
-            <br />
+          <br />
 
-            <div class="col-auto">
-              <button id="login_btn" class="btn btn-primary mb-3 btn-cstm">
-                Login
-              </button>
-            </div>
-          </form>
-
-          if not registered please <b>Register</b>.
-        </div>
-
-        <div
-          class="tab-pane fade"
-          role="tabpanel"
-          aria-labelledby="register-tab"
-          id="register"
-        >
-          <h1 class="h1">Register</h1>
-          <form action="" method="POST">
-            <div class="input-group">
-              <div class="input-group-text"><i class="fas fa-user"></i></div>
-              <input
-                id="reg_user"
-                type="text"
-                name="register_username"
-                class="form-control"
-                placeholder="full name"
-                required="required"
-                value=""
-              />
-            </div>
-
-            <br />
-
-            <div class="input-group">
-              <div class="input-group-text">
-                <i class="fas fa-envelope-open-text"></i>
-              </div>
-              <input
-                id="reg_email"
-                type="text"
-                name="register_username"
-                class="form-control"
-                placeholder="email address"
-                required="required"
-                value=""
-              />
-            </div>
-
-            <br />
-
-            <div class="input-group">
-              <div class="input-group-text"><i class="fas fa-lock"></i></div>
-              <input
-                type="password"
-                class="form-control"
-                id="reg_pwd"
-                placeholder="password"
-              />
-            </div>
-
-            <br />
-
-            <div class="col-auto">
-              <button id="reg_btn" class="btn btn-primary mb-3 btn-cstm">
-                Register
-              </button>
-            </div>
-          </form>
-        </div>
+          <div class="col-auto">
+            <button id="reg_btn" class="btn btn-primary mb-3 btn-cstm">
+              Register
+            </button>
+          </div>
+        </form>
       </div>
     </div>
-  </body>
+  </div>
+</body>
 
-  <script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous"
-  ></script>
-  <script>
-    login_btn = document.getElementById('login_btn')
-    reg_btn = document.getElementById('reg_btn')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+  login_btn = document.getElementById('login_btn')
+  reg_btn = document.getElementById('reg_btn')
+  
+  document.getElementById('psd').onclick = (ev) => {
+    if($('#login_pwd').attr('type') == "password"){
+      $('#psd-icon').removeClass('fa-eye');$('#psd-icon').addClass('fa-eye-slash');
+      document.getElementById('login_pwd').type = "text"
+    }
+    else{
+      document.getElementById('login_pwd').type = "password"
+      $('#psd-icon').addClass('fa-eye')
+      $('#psd-icon').removeClass('fa-eye-slash')
+    }
+  }
 
-    login_btn.onclick = (ev) => {
-        ev.preventDefault()
-        email = document.getElementById('login_mail').value
-        pwd = document.getElementById('login_pwd').value
+  login_btn.onclick = (ev) => {
+    ev.preventDefault()
+    email = document.getElementById('login_mail').value
+    pwd = document.getElementById('login_pwd').value
 
-        if (email == " ") {
-          alert('Enter email address')
-          return
+    if (email == " ") {
+      alert('Enter email address')
+      return
+    }
+    if (pwd.length < 6) {
+      alert('Enter Password')
+      return
+    }
+
+    console.log(email, pwd);
+
+    $.ajax({
+      type: 'POST',
+      url: '{% url 'login' %}',
+      data: {
+        "csrfmiddlewaretoken": "{{ csrf_token }}",
+        "email": email,
+        "pwd": pwd
+      },
+      success: function (data) {
+        if (data['u_id']) {
+          window.location.href = 'home/' + data['u_id'] + '/'
+        } else {
+          alert('User name Password doesn`t match')
         }
-        if (pwd.length < 6) {
-          alert('Enter Password')
-          return
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  reg_btn.onclick = (ev) => {
+    ev.preventDefault()
+    fullname = document.getElementById('reg_user').value
+    email = document.getElementById('reg_email').value
+    pwd = document.getElementById('reg_pwd').value
+
+    console.log(fullname, email, pwd);
+
+    $.ajax({
+      type: 'POST',
+      url: '{% url 'register' %}',
+      data: {
+        "csrfmiddlewaretoken": "{{ csrf_token }}",
+        "name": fullname,
+        "email": email,
+        "password": pwd,
+      },
+      success: (data) => {
+        console.log(data);
+        if (data.status) {
+          console.log(data)
+          window.location.href = "home/" + data['id'] + "/"
+        } else {
+          alert(email + "  " + data['email'])
         }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
 
-        console.log(email, pwd);
+</script>
 
-        $.ajax({
-            type: 'POST',
-            url: '{% url 'login' %}',
-            data: {
-              "email": email,
-              "pwd": pwd
-            },
-            success: function (data) {
-              if(data['u_id']){
-                window.location.href = 'home/'+ data['u_id'] +'/'
-              }
-              else{
-                alert('User name Password doesn`t match')
-              }
-            },
-            error : function (error){
-              console.log(error);
-            }
-          }
-          );
-        }
-
-        reg_btn.onclick = (ev) => {
-            ev.preventDefault()
-            fullname = document.getElementById('reg_user').value
-            email = document.getElementById('reg_email').value
-            pwd = document.getElementById('reg_pwd').value
-
-            console.log(fullname,email,pwd);
-
-            $.ajax({
-              type:'POST',
-              url: '{% url 'register' %}',
-              data :{
-                "name" : fullname,
-                "email" : email,
-                "password" : pwd,
-              },
-              success : (data) => {
-                console.log(data);
-                if(data.status){
-                  console.log(data)
-                  window.location.href = "home/"+ data['id'] + "/"
-                }
-                else{
-                  alert(email+ "  " + data['email'])
-                }
-              },
-              error : (error) => {
-                console.log(error);
-              }
-            })
-          }
-  </script>
 </html>

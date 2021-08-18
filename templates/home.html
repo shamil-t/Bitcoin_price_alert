@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 <head>
@@ -16,6 +17,8 @@
     integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
   </script>
 
+  <link rel="stylesheet" href="{% static 'table_load.css' %}">
+
   <style>
     .user-group {
       display: flex;
@@ -32,24 +35,29 @@
     .user-group .user-icon button:focus {
       box-shadow: none;
     }
+
     .sm {
       font-size: 12px;
     }
-    .logo{
+
+    .logo {
       width: 24px;
       height: 24px;
       margin: 5px;
     }
-    .sign{
+
+    .sign {
       color: rgb(255, 144, 140);
       font-size: 12px;
       margin: 5px;
     }
-    .up{
+
+    .up {
       color: green;
       font-weight: 600;
     }
-    .down{
+
+    .down {
       color: red;
     }
   </style>
@@ -75,9 +83,12 @@
           <div class="user-icon">
             <button class="btn" type="button" data-bs-toggle="dropdown"><i class="fas fa-user-circle"></i></button>
             <div class="dropdown-menu dropdown-menu-end">
-              <div class="dropdown-item"> <i class="fas fa-plus-circle"></i> &nbsp; Create</div>
-              <div class="dropdown-item"> <i class="fas fa-bells"></i> &nbsp; My Alerts</div>
-              <div class="dropdown-item"> <i class="fas fa-sign-out"></i> &nbsp; Log out</div>
+              <div class="dropdown-item"> <a class="link-dark text-decoration-none" href="create"><i
+                    class="fas fa-plus-circle"></i> &nbsp; Create</a> </div>
+              <div class="dropdown-item"> <a class="link-dark text-decoration-none" href="alerts"><i
+                    class="fas fa-bells"></i> &nbsp; My Alerts</a></div>
+              <div class="dropdown-item"> <a class="link-dark text-decoration-none" href="/"><i
+                    class="fas fa-sign-out"></i> &nbsp; Log out </a> </div>
             </div>
           </div>
         </div>
@@ -87,7 +98,7 @@
   <div class="container my-3">
     <div class="row justify-content-center align-content-center">
       <div class="col-10">
-        <table class="table table-striped">
+        <table id="t-b" class="table loading">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -98,21 +109,22 @@
             </tr>
           </thead>
           <tbody id="t-c">
+            <tr class="table bg-light" height="300px">
+              <td colspan="5">
 
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
 </body>
-<script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous"
-  ></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
   $(document).ready(
-    setInterval(getCoins,10000)
+    setInterval(getCoins, 10000)
   )
 
   function getCoins() {
@@ -123,26 +135,24 @@
       url: '{% url 'coins' %}',
       success: (data) => {
         $('#t-c').html(" ");
-        $.each(data , (i, item) => {
-          if (data[i].change.startsWith('+')){
+        $.each(data, (i, item) => {
+          if (data[i].change.startsWith('+')) {
             change = "up"
-          }
-          else{
+          } else {
             change = "down"
           }
-          
-          console.log(data[i].change);
-          tr = "<tr> "
-          +"<td> "+ (parseInt(i) + 1)+"</td> "
-          +"<td> <img class="+"logo"+" src = "+ data[i].image +"/>"
-            + data[i].name + "<span class="+"sign"+">"+ data[i].sign +"</span>" +"</td> "
-          +"<td>"+ data[i].price +"</td> "
-          +"<td>"+ data[i].market +"</td> "
-          +"<td> <span class="+ change +">"+ data[i].change +"</span> </td> "
-          +"</tr>"
+
+          tr = "<tr> " +
+            "<td> " + (parseInt(i) + 1) + "</td> " +
+            "<td> <img class=" + "logo" + " src = " + data[i].image + "/>" +
+            data[i].name + "<span class=" + "sign" + ">" + data[i].sign + "</span>" + "</td> " +
+            "<td>" + data[i].price + "</td> " +
+            "<td>" + data[i].market + "</td> " +
+            "<td> <span class=" + change + ">" + data[i].change + "</span> </td> " +
+            "</tr>"
           $('#t-c').append(tr);
+          $('#t-b').removeClass('loading')
         })
-        
       },
       error: (error) => {
         console.log(error);
