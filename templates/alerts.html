@@ -82,7 +82,28 @@
               <div class="price">
                 <b>Price :-</b> <i> ${{ a.alert_price }}</i>
               </div>
-              <div class="status"><b>Status :-</b> <i>{{ a.trigger }}</i></div>
+              <div class="status"><b>Status :-</b> <i> {% if a.status %}Alerted {% else %} not alerted {% endif %}</i></div>
+              <div class="form-check form-switch">
+                <label class="form-check-label" for="flexSwitchCheckChecked"
+                    >Trigger Status</label
+                  >
+                  {% if a.trigger %}
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="trigger"
+                    onclick="return false;"
+                    checked
+                  />
+                  {% else %}
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="trigger"
+                    onclick="return false;"
+                  />
+                  {% endif%}
+                </div>
             </div>
             <div class="card-footer bg-transparent">
               <div class="d-md-flex justify-content-center">

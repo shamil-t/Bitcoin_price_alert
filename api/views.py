@@ -7,17 +7,22 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from django.views.decorators.csrf import csrf_exempt
-from django.conf import settings
-from django.core.mail import send_mail
 from .models import *
 
+import schedule
+from schedule import Scheduler
+import time
+import threading
+
 from .scrapper import crypto
+
 # Create your views here.
 
 # admin : btc123
 
 
 def Index(request):
+    Scheduler.run_continuously = run_continuously
     return render(request, 'index.html')
 
 
@@ -67,14 +72,6 @@ def GetAlerts(request, id):
     return render(request, 'alerts.html', context=context)
 
 
-def sendEmail():
-    Users = CreateApiModel.objects.all()
-    for user in Users:
-        subject = 'Bitcoin $ Price Alert'
-        message = 'Hi {user.name}, \n The Bitcoin price is higher than your alert price({user.price})'
-        email_from = settings.EMAIL_HOST_USER
-        send_mail(subject, message, email_from, user.email)
-    return HttpResponse('Email send')
 
 
 class UserView(APIView):
@@ -125,7 +122,7 @@ def createAlert(request):
 
 @api_view(['GET'])
 def getAlert(request, id):
-    Alerts = filter(user=id)
+    Alerts = CreateApiModel.objects.filter(user=id)
     alerts = [CreateSerializers(alert).data for alert in Alerts]
     return Response(alerts)
 
@@ -144,3 +141,56 @@ def delAlert(request,id):
 def getCrypto(request):
     coins = crypto.getCoinPrice()
     return Response(coins)
+
+
+## Scheduler
+
+def run_continuously(self, interval=1):
+    """Continuously run, while executing pending jobs at each elapsed
+    time interval.
+    @return cease_continuous_run: threading.Event which can be set to
+    cease continuous run.
+    Please note that it is *intended behavior that run_continuously()
+    does not run missed jobs*. For example, if you've registered a job
+    that should run every minute and you set a continuous run interval
+    of one hour then your job won't be run 60 times at each interval but
+    only once.
+    """
+
+    print('in class scheduler')
+
+    cease_continuous_run = threading.Event()
+
+    class ScheduleThread(threading.Thread):
+
+        @classmethod
+        def run(cls):
+            while not cease_continuous_run.is_set():
+                self.run_pending()
+                time.sleep(interval)
+        
+        def foo(self):
+            # if some_condition():
+            print('in fooo')
+            return schedule.CancelJob  # a job can dequeue it
+
+        # can be put in __enter__ or __init__
+        # self._job_stop = self.scheduler.run_continuously()
+
+        # logger.debug("doing foo"...)
+        self.foo() # call foo
+        self.scheduler.every(5).seconds.do(self.foo) # schedule foo for running every 5 seconds
+
+
+        # later on foo is not needed any more:
+        self._job_stop.set()
+
+        def __exit__(self, exec_type, exc_value, traceback):
+            # if the jobs are not stop, you can stop them
+            self._job_stop.set()
+
+    continuous_thread = ScheduleThread()
+    continuous_thread.setDaemon(True)
+    continuous_thread.start()
+
+    return cease_continuous_run
