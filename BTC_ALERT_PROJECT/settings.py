@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['localhost','my-coin-alert.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
