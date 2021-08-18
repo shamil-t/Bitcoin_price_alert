@@ -1,0 +1,1 @@
+web: gunicorn BTC_ALERT_PROJECT.wsgi --log-file -
