@@ -28,7 +28,7 @@ def start_scheduler():
 
 
 def sendEmail(alert):
-    subject = 'Bitcoin Price Alert ()'
+    subject = 'Bitcoin Price Alert $$$'
     message = f'Hi {alert.user.name}, \n The Bitcoin price is higher than your alert price ${alert.alert_price}'
     email_from = settings.EMAIL_HOST_USER
 

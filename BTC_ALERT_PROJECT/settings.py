@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-o4w+wz8y07l0=js^730@iuvhq=r$s%$fl67@-ms)4+ewwc3r_8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','my-coin-alert.herokuapp.com']
+ALLOWED_HOSTS = ['localhost','*']
 
 
 # Application definition
@@ -147,8 +147,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'btcalert007@gmail.com'
-EMAIL_HOST_PASSWORD = 'BtcAlert@123'
+EMAIL_HOST_USER = 'YOUR EMAIL'
+EMAIL_HOST_PASSWORD = 'EMAIL PASSWORD'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 

@@ -18,8 +18,6 @@ from .scrapper import crypto
 
 # Create your views here.
 
-# admin : btc123
-
 
 def Index(request):
     Scheduler.run_continuously = run_continuously
